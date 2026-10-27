@@ -8,4 +8,4 @@ workflows:
         script: |
           find . -name "build.gradle*" -execdir gradle assembleDebug \;
     artifacts:
-      - "**/build/outputs/apk/debug/*.apk"
+      - "**/build/outputs/**/*.apk"
