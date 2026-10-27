@@ -1,0 +1,13 @@
+workflows:
+  android-workflow:
+    name: Android Workflow
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    scripts:
+      - name: Build APK
+        script: |
+          cd LauncherRadio
+          chmod +x gradlew
+          ./gradlew assembleDebug
+    artifacts:
+      - LauncherRadio/app/build/outputs/apk/debug/app-debug.apk
