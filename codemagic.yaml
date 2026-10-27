@@ -1,11 +1,29 @@
-workflows:
-  android-workflow:
-    name: Android Workflow
-    max_build_duration: 120
-    instance_type: mac_mini_m1
-    scripts:
-      - name: Build APK
-        script: |
+name: Build Android APK
+
+on:
+  push:
+    branches: [ principal, master, main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build APK with Gradle
+        run: |
           find . -name "build.gradle*" -execdir gradle assembleDebug \;
-    artifacts:
-      - "**/build/outputs/**/*.apk"
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug
+          path: '**/build/outputs/apk/debug/app-debug.apk'
