@@ -6,8 +6,6 @@ workflows:
     scripts:
       - name: Build APK
         script: |
-          cd LauncherRadio/LauncherRadio || cd LauncherRadio || true
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          find . -name "build.gradle*" -execdir gradle assembleDebug \;
     artifacts:
       - "**/build/outputs/apk/debug/*.apk"
